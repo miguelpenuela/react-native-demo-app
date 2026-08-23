@@ -1,7 +1,8 @@
 import { useState } from "react";
-import {Button, Text, View} from "react-native";
+import {Button, Text, TouchableOpacity, View} from "react-native";
+import {useToggle} from "../hooks/useToggle";
 
-interface Product {
+export interface Product {
     id: string;
     name: string;
     price: number;
@@ -16,11 +17,20 @@ export default function ProductCard({product, onAddToCart}: ProductCardProps) {
 
     const [quantity, setQuantity] = useState(1);
 
+    const [isExpanded, toggleExpanded] = useToggle(false);
+
     return (
         <View>
-            <Text>{product.name} - ${product.price}</Text>
-            <Button title="+" onPress={() => setQuantity(quantity + 1)}/>
-            <Button title="Agregar" onPress={() => onAddToCart(product, quantity)}/>
+            <TouchableOpacity onPress={toggleExpanded}>
+                <Text>{isExpanded ? "Ver menos": "Ver más"}</Text>
+            </TouchableOpacity>
+            {isExpanded && (
+                <View>
+                    <Text>{product.name} - ${product.price}</Text>
+                    <Button title="+" onPress={() => setQuantity(quantity + 1)}/>
+                    <Button title="Agregar" onPress={() => onAddToCart(product, quantity)}/>
+                </View>
+            )}
         </View>
     )
 }
