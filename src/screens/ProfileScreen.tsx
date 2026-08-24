@@ -1,13 +1,26 @@
 import {UserProfile} from "../models/UserProfile.interface";
 import {Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
+import {useState} from "react";
 
-function ProfileScreen({ user }: { user: UserProfile}) {
+export function ProfileScreen() {
 
     const { width } = useWindowDimensions();
     const isTablet = width > 600;
 
     const avatarSize = isTablet ? 140 : 100;
     const contentMaxWidth = isTablet ? 500 : width; // limita ancho en tablets
+
+    const [user, setUser] = useState<UserProfile>({
+        id: '0',
+        name: 'default',
+        avatarUrl: 'dummy',
+        bio: 'dummy',
+        stats: {
+            posts: 0,
+            followers: 0,
+            following: 0
+        }
+    });
 
     return (
         <View style={[styles.container, { maxWidth: contentMaxWidth, alignSelf: "center"}]}>
