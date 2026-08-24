@@ -6,4 +6,5 @@ export type RootStackParamsList = {
     HomeTab: undefined,
     ProductDetail: { productId: string }, // requiere productId
     Profile: { userId: string, fromScreen?: string  }, // fromScreen opcional
+    OrderDetail: { orderId: string }
 }
