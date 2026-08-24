@@ -4,9 +4,9 @@ import {useToggle} from "../hooks/useToggle";
 
 export interface Product {
     id: string;
-    name: string;
+    title: string;
     price: number;
-    imageUrl: string;
+    image: string;
 }
 
 interface ProductCardProps {
@@ -35,11 +35,11 @@ export default function ProductCard({product, onAddToCart}: ProductCardProps) {
             {isExpanded && (
                 <View style={{flexDirection: "row", alignItems: "center", padding: 12}}>
                     <Image
-                        source={{uri: product.imageUrl}}
+                        source={{uri: product.image}}
                         style={{ width: 80, height: 80, borderRadius: 8}}
                     />
                     <View style={{flexDirection: "column", alignItems: "flex-start", marginLeft: 12}}>
-                        <Text style={{fontSize: 16, fontWeight: "600"}}>{product.name}</Text>
+                        <Text style={{fontSize: 16, fontWeight: "600"}}>{product.title}</Text>
                         <Text style={{fontSize: 14, color: "gray"}}>{product.price}</Text>
                     </View>
                 </View>

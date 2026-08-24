@@ -4,10 +4,13 @@ import {LinkingOptions, NavigationContainer} from "@react-navigation/native";
 import {HomeScreen} from "./src/screens/HomeScreen";
 import {ProfileScreen} from "./src/screens/ProfileScreen";
 import {ProductDetailScreen} from "./src/screens/ProductDetailScreen";
-import {RootStackParamsList} from "./src/navigation/types";
+import {HomeStackParamsList, RootStackParamsList, TabParamList} from "./src/navigation/types";
 import {AuthProvider} from "./src/store/AuthContext";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {ProductListScreen} from "./src/screens/ProductListScreen";
+import {CartScreen, CartTabIcon} from "./src/screens/CartScreen";
 
 //const Stack = createNativeStackNavigator();
 
@@ -17,15 +20,6 @@ const Stack = createNativeStackNavigator<RootStackParamsList>();
 casi ninguna app usa solo un tipo de navigator, lo típico: tabs como navegación principal, y cada
 tab tiene su propio stack interno para poder "entrar en detalle" sin perder las pestañas
 * */
-
-function HomeStack() {
-  return (
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="ProductDetail" component={ProductDetailScreen} />
-      </Stack.Navigator>
-  )
-}
 
 /*
 configurar linking para conectar las url con tus pantallas ya definidas,
@@ -41,21 +35,30 @@ const linking: LinkingOptions<RootStackParamsList> = {
         }
     }
 }
-
+const HomeStack = createNativeStackNavigator<HomeStackParamsList>();
+const Tab = createBottomTabNavigator<TabParamList>();
 const queryClient = new QueryClient();
+
+function HomeStackNavigator() {
+    return (
+        <HomeStack.Navigator>
+            <HomeStack.Screen name="ProductList" component={ProductListScreen} options={{title: "Productos"}}/>
+            <HomeStack.Screen name="ProductDetail" component={ProductDetailScreen} options={{title: "Detalle"}}/>
+        </HomeStack.Navigator>
+    )
+}
+
 
 export default function App() {
   return (
-      <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-            <NavigationContainer linking={linking}>
-              <Stack.Navigator>
-                <Stack.Screen name="Profile" component={ProfileScreen}/>
-                <Stack.Screen name="HomeTab" component={HomeStack}/>
-              </Stack.Navigator>
-            </NavigationContainer>
-        </QueryClientProvider>
-      </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer linking={linking}>
+        <Tab.Navigator>
+          <Tab.Screen name="HomeTab" component={HomeStackNavigator} options={{title: "Tienda", headerShown: false}} />
+          <Tab.Screen name="CartTab" component={CartScreen} options={{title: "Carrito", tabBarIcon: () => <CartTabIcon/>}} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
 

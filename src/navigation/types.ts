@@ -6,5 +6,16 @@ export type RootStackParamsList = {
     HomeTab: undefined,
     ProductDetail: { productId: string }, // requiere productId
     Profile: { userId: string, fromScreen?: string  }, // fromScreen opcional
-    OrderDetail: { orderId: string }
+    OrderDetail: { orderId: string },
+    ProductList: undefined
+}
+
+export type HomeStackParamsList = {
+    ProductList: undefined;
+    ProductDetail: { productId: string };
+}
+
+export type TabParamList = {
+    HomeTab: undefined;
+    CartTab: undefined;
 }

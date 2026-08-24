@@ -1,39 +1,33 @@
-import {Button, Text, View} from "react-native";
+import {ActivityIndicator, Button, Image, Text, TouchableOpacity, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamsList} from "../navigation/types";
+import {HomeStackParamsList, RootStackParamsList} from "../navigation/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {CartItem} from "../store/useCartStore";
+import {CartItem, useCartStore} from "../store/useCartStore";
 import {Product} from "../components/ProductCard";
+import {useProduct} from "../store/useProducts";
 
-type ProductDetailProps = NativeStackScreenProps<RootStackParamsList, "ProductDetail">;
+type ProductDetailProps = NativeStackScreenProps<HomeStackParamsList, "ProductDetail">;
 
-function addToCart(item: CartItem): Promise<void> {
-    return fetch("https://api.example.com/cart", {
-        method: "POST",
-        body: JSON.stringify(item),
-    }).then(() => undefined)
-}
+export function ProductDetailScreen({ route }: ProductDetailProps) {
 
-export function ProductDetailScreen({ product }: { product: Product }) {
+    const { productId } = route.params;
+    const { data: product, isLoading } = useProduct(productId);
+    const addItem = useCartStore((state) => state.addItem);
 
-    //const { productId } = route.params; // tipado automáticamente como string
-    const queryClient = useQueryClient();
-
-    const mutation = useMutation({
-        mutationFn: addToCart,
-        onSuccess: () => {
-            // invalida la caché del carrito para que se vuelva a pedir con datos frescos
-            queryClient.invalidateQueries({queryKey: ["cart"]});
-        },
-    })
+    if (isLoading || !product) return <ActivityIndicator style={{flex: 1}}/>;
 
     return (
-        <View>
-            <Button
-                title={mutation.isPending ? "Agregando..." : "Agregar al carrito"}
-                onPress={() => mutation.mutate({id: product.id, name: product.name, price: product.price})}
-                disabled={mutation.isPending}
-            />
+        <View style={{padding: 16}}>
+            <Image source={{uri: product.image}} style={{width: "100%", height: 250}}/>
+            <Text style={{fontSize: 18, fontWeight: "700", marginTop: 12}}>{product.title}</Text>
+            <Text style={{fontSize: 16, color: "gray", marginTop: 4}}>${product.price}</Text>
+
+            <TouchableOpacity
+                style={{backgroundColor: "#333", padding: 14, borderRadius: 8, alignItems: "center", marginTop: 20}}
+                onPress={() => addItem(product)}
+            >
+                <Text style={{color: "white", fontWeight: "600"}}>Agregar al carrito</Text>
+            </TouchableOpacity>
         </View>
     )
 }
