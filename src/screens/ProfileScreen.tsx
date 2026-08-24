@@ -12,13 +12,13 @@ export function ProfileScreen() {
 
     const [user, setUser] = useState<UserProfile>({
         id: '0',
-        name: 'default',
+        name: 'Felipe Garzon',
         avatarUrl: 'dummy',
-        bio: 'dummy',
+        bio: 'Hello, this is my Bio',
         stats: {
-            posts: 0,
-            followers: 0,
-            following: 0
+            posts: 10,
+            followers: 20,
+            following: 30
         }
     });
 
@@ -45,11 +45,10 @@ export function ProfileScreen() {
                     <Text style={styles.statNumber}>{user.stats.following}</Text>
                     <Text style={styles.statLabel}>Siguiendo</Text>
                 </View>
-
-                <TouchableOpacity style={styles.editButton}>
-                    <Text style={styles.editButtonText}>Editar perfil</Text>
-                </TouchableOpacity>
             </View>
+            <TouchableOpacity style={styles.editButton}>
+                <Text style={styles.editButtonText}>Editar perfil</Text>
+            </TouchableOpacity>
         </View>
     )
 

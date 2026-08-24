@@ -1,6 +1,6 @@
 import {Button, Text, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamsList} from "../../App";
+import {RootStackParamsList} from "../navigation/types";
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamsList, "Home">;
 
