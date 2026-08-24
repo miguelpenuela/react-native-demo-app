@@ -7,6 +7,7 @@ import {ProfileScreen} from "./src/screens/ProfileScreen";
 import {ProductDetailScreen} from "./src/screens/ProductDetailScreen";
 import {RootStackParamsList} from "./src/navigation/types";
 import SearchScreen from "./src/screens/SearchScreen";
+import {AuthProvider} from "./src/store/AuthContext";
 
 //const Stack = createNativeStackNavigator();
 
@@ -43,12 +44,14 @@ const linking: LinkingOptions<RootStackParamsList> = {
 
 export default function App() {
   return (
-    <NavigationContainer linking={linking}>
-      <Stack.Navigator>
-        <Stack.Screen name="Profile" component={ProfileScreen}/>
-        <Stack.Screen name="HomeTab" component={HomeStack}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+      <AuthProvider>
+        <NavigationContainer linking={linking}>
+          <Stack.Navigator>
+            <Stack.Screen name="Profile" component={ProfileScreen}/>
+            <Stack.Screen name="HomeTab" component={HomeStack}/>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
   );
 }
 

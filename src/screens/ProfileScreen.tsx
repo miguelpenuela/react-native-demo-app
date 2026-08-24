@@ -1,6 +1,7 @@
 import {UserProfile} from "../models/UserProfile.interface";
 import {Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View} from "react-native";
 import {useState} from "react";
+import {useAuth} from "../store/AuthContext";
 
 export function ProfileScreen() {
 
@@ -10,7 +11,7 @@ export function ProfileScreen() {
     const avatarSize = isTablet ? 140 : 100;
     const contentMaxWidth = isTablet ? 500 : width; // limita ancho en tablets
 
-    const [user, setUser] = useState<UserProfile>({
+    /*const [user, setUser] = useState<UserProfile>({
         id: '0',
         name: 'Felipe Garzon',
         avatarUrl: 'dummy',
@@ -20,29 +21,31 @@ export function ProfileScreen() {
             followers: 20,
             following: 30
         }
-    });
+    });*/
+
+    const {user, logout} = useAuth();
 
     return (
         <View style={[styles.container, { maxWidth: contentMaxWidth, alignSelf: "center"}]}>
             <View style={styles.header}>
                 <Image
-                    source={{ uri: user.avatarUrl}}
+                    source={{ uri: user?.avatarUrl}}
                     style={{ width: avatarSize, height: avatarSize, borderRadius: avatarSize/2 }}
                 />
-                <Text style={styles.name}>{user.name}</Text>
-                <Text style={styles.bio}>{user.bio}</Text>
+                <Text style={styles.name}>{user?.name}</Text>
+                <Text style={styles.bio}>{user?.bio}</Text>
             </View>
             <View style={styles.statsRow}>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}>{user.stats.posts}</Text>
+                    <Text style={styles.statNumber}>{user?.stats.posts}</Text>
                     <Text style={styles.statLabel}>Posts</Text>
                 </View>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}>{user.stats.followers}</Text>
+                    <Text style={styles.statNumber}>{user?.stats.followers}</Text>
                     <Text style={styles.statLabel}>Seguidores</Text>
                 </View>
                 <View style={styles.statItem}>
-                    <Text style={styles.statNumber}>{user.stats.following}</Text>
+                    <Text style={styles.statNumber}>{user?.stats.following}</Text>
                     <Text style={styles.statLabel}>Siguiendo</Text>
                 </View>
             </View>

@@ -8,8 +8,9 @@ const Tab = createBottomTabNavigator();
 export function MainTabs() {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Search" component={SearchScreen} />
+            {/*<Tab.Screen name="Home" component={HomeScreen}/>
+                <Tab.Screen name="Search" component={SearchScreen} />
+            */}
             <Tab.Screen name="Profile" component={ProfileScreen} />
         </Tab.Navigator>
     )
