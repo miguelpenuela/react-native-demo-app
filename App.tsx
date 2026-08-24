@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {NavigationContainer} from "@react-navigation/native";
+import {LinkingOptions, NavigationContainer} from "@react-navigation/native";
 import {HomeScreen} from "./src/screens/HomeScreen";
 import {ProfileScreen} from "./src/screens/ProfileScreen";
 import {ProductDetailScreen} from "./src/screens/ProductDetailScreen";
@@ -26,9 +26,24 @@ function HomeStack() {
   )
 }
 
+/*
+configurar linking para conectar las url con tus pantallas ya definidas,
+con esta configuración:
+- miapp://product/123 -> abre ProductDetail con route.params.productId === "123"
+* */
+const linking: LinkingOptions<RootStackParamsList> = {
+    prefixes: ["mirnapp://", "https://myrnapp.com"], // scheme propio + dominio web
+    config: {
+        screens: {
+            Home: "home",
+            ProductDetail: "productDetail/:productId",
+        }
+    }
+}
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator>
         <Stack.Screen name="Profile" component={ProfileScreen}/>
         <Stack.Screen name="HomeTab" component={HomeStack}/>
