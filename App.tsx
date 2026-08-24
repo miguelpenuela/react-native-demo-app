@@ -1,13 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {LinkingOptions, NavigationContainer} from "@react-navigation/native";
 import {HomeScreen} from "./src/screens/HomeScreen";
 import {ProfileScreen} from "./src/screens/ProfileScreen";
 import {ProductDetailScreen} from "./src/screens/ProductDetailScreen";
 import {RootStackParamsList} from "./src/navigation/types";
-import SearchScreen from "./src/screens/SearchScreen";
 import {AuthProvider} from "./src/store/AuthContext";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 //const Stack = createNativeStackNavigator();
 
@@ -42,15 +42,19 @@ const linking: LinkingOptions<RootStackParamsList> = {
     }
 }
 
+const queryClient = new QueryClient();
+
 export default function App() {
   return (
       <AuthProvider>
-        <NavigationContainer linking={linking}>
-          <Stack.Navigator>
-            <Stack.Screen name="Profile" component={ProfileScreen}/>
-            <Stack.Screen name="HomeTab" component={HomeStack}/>
-          </Stack.Navigator>
-        </NavigationContainer>
+        <QueryClientProvider client={queryClient}>
+            <NavigationContainer linking={linking}>
+              <Stack.Navigator>
+                <Stack.Screen name="Profile" component={ProfileScreen}/>
+                <Stack.Screen name="HomeTab" component={HomeStack}/>
+              </Stack.Navigator>
+            </NavigationContainer>
+        </QueryClientProvider>
       </AuthProvider>
   );
 }
