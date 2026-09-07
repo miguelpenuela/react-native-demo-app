@@ -11,6 +11,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {ProductListScreen} from "./src/screens/ProductListScreen";
 import {CartScreen, CartTabIcon} from "./src/screens/CartScreen";
+import {AddReviewScreen} from "./src/screens/AddReviewScreen";
+import {ProductReviewsScreen} from "./src/screens/ProductReviewsScreen";
 
 //const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,8 @@ function HomeStackNavigator() {
         <HomeStack.Navigator>
             <HomeStack.Screen name="ProductList" component={ProductListScreen} options={{title: "Productos"}}/>
             <HomeStack.Screen name="ProductDetail" component={ProductDetailScreen} options={{title: "Detalle"}}/>
+            <HomeStack.Screen name="AddReview" component={AddReviewScreen} options={{title: "Agregar reseña"}}/>
+            <HomeStack.Screen name="ProductReviews" component={ProductReviewsScreen} options={{title: "Ver reseñas"}}/>
         </HomeStack.Navigator>
     )
 }

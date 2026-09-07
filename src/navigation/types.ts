@@ -13,6 +13,8 @@ export type RootStackParamsList = {
 export type HomeStackParamsList = {
     ProductList: undefined;
     ProductDetail: { productId: string };
+    AddReview: { productId: string };
+    ProductReviews: { productId: string };
 }
 
 export type TabParamList = {
