@@ -14,11 +14,15 @@ export function CartScreen() {
                 data={items}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <View style={{flexDirection: "row", justifyContent: "space-between", paddingVertical: 8}}>
-                        <Text>{item.title} x {item.quantity}</Text>
-                        <TouchableOpacity onPress={() => removeItem(item.id)}>
-                            <Text style={{color: "red"}}>Quitar</Text>
-                        </TouchableOpacity>
+                    <View style={{display: "flex", flexDirection: "column", marginBottom: 16, borderWidth: 1, padding:10, borderRadius: 10}}>
+                        <View>
+                            <Text>{item.title} x {item.quantity}</Text>
+                        </View>
+                        <View>
+                            <TouchableOpacity onPress={() => removeItem(item.id)}>
+                                <Text style={{color: "red", textAlign: "right",padding:8}}>Quitar</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 )}
             />

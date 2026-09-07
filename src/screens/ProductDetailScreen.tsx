@@ -1,9 +1,7 @@
-import {ActivityIndicator, Button, Image, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, Image, Text, TouchableOpacity, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {HomeStackParamsList, RootStackParamsList} from "../navigation/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {CartItem, useCartStore} from "../store/useCartStore";
-import {Product} from "../components/ProductCard";
+import {HomeStackParamsList} from "../navigation/types";
+import {useCartStore} from "../store/useCartStore";
 import {useProduct} from "../store/useProducts";
 
 type ProductDetailProps = NativeStackScreenProps<HomeStackParamsList, "ProductDetail">;

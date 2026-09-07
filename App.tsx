@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {LinkingOptions, NavigationContainer} from "@react-navigation/native";
 import {HomeScreen} from "./src/screens/HomeScreen";
@@ -54,7 +54,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer linking={linking}>
         <Tab.Navigator>
-          <Tab.Screen name="HomeTab" component={HomeStackNavigator} options={{title: "Tienda", headerShown: false}} />
+          <Tab.Screen name="HomeTab" component={HomeStackNavigator} options={{title: "Tienda", headerShown: false, tabBarIcon: () => <Text>🏪</Text>}} />
           <Tab.Screen name="CartTab" component={CartScreen} options={{title: "Carrito", tabBarIcon: () => <CartTabIcon/>}} />
         </Tab.Navigator>
       </NavigationContainer>
