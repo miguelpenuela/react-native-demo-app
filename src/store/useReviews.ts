@@ -1,6 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {getReviews, saveReview} from "./storage";
 import {Review} from "../models/Review.interface";
+import {getReviews, saveReview} from "./reviewsStore";
 
 export function useReviews(productId: string) {
     return useQuery({
